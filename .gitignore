@@ -1,0 +1,6 @@
+### ansible ###
+*.retry
+
+### project ###
+secret/
+*.pub
