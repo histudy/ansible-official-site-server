@@ -34,7 +34,7 @@
         document_root: "/var/www/html"
         client_max_body_size: 16M
         ssl:
-          certificate: /etc/letsencrypt/live/histudy.jp/cert.pem
+          certificate: /etc/letsencrypt/live/histudy.jp/fullchain.pem
           certificate_key: /etc/letsencrypt/live/histudy.jp/privkey.pem
           trusted_certificate: /etc/letsencrypt/live/histudy.jp/chain.pem
           protocols:
