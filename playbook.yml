@@ -14,14 +14,17 @@
     certbot_create_if_missing: yes
     certbot_auto_renew_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
     certbot_install_method: snap
-    certbot_create_method: webroot
+    certbot_create_method: standalone
     certbot_admin_email: autumnsky64@gmail.com
     certbot_certs:
-    - domains:
-        - histudy.jp
+      - webroot: "/var/www/html"
+        domains:
+          - histudy.jp
     certbot_auto_renew: true
     certbot_auto_renew_hour: "3"
     certbot_auto_renew_minute: "30"
+    certbot_create_standalone_stop_services:
+      - nginx
     nginx_vhosts:
       - name: static-ssl
         server_name: histudy.jp
