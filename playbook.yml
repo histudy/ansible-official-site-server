@@ -22,8 +22,9 @@
           - histudy.jp
           - www.histudy.jp
     certbot_auto_renew: true
-    certbot_auto_renew_hour: "3"
+    certbot_auto_renew_hour: "3,15"
     certbot_auto_renew_minute: "30"
+    certbot_auto_renew_options: "--quiet --nginx"
   roles:
     - role: common
     - role: nginx
@@ -41,13 +42,18 @@
 
   tasks:
     - name: www.histudy.jp -> histudy.jp へのリダイレクト設定追加
-      ansible.builtin.lineinfile:
-        path: /etc/nginx/sites-available/www.histudy.jp
-        backup: true
-        insertafter: '^server {'
-        line: 'return 301 https://histudy.jp;'
-      notify:
-        - reload nginx
+      block:
+        - name: 既にリダイレクト設定があるか確認
+          shell: grep -E 'return 301 https://histudy.jp;' /etc/nginx/sites-available/www.histudy.jp
+      rescue:
+        - name:
+          ansible.builtin.lineinfile:
+            path: /etc/nginx/sites-available/www.histudy.jp
+            backup: true
+            insertafter: '^server {'
+            line: 'return 301 https://histudy.jp;'
+          notify:
+            - reload nginx
 
     - name: Fix document root permission
       file:
