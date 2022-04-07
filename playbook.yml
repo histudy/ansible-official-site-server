@@ -40,6 +40,15 @@
         force_apt_get: true
 
   tasks:
+    - name: www.histudy.jp -> histudy.jp へのリダイレクト設定追加
+      ansible.builtin.lineinfile:
+        path: /etc/nginx/sites-available/www.histudy.jp
+        backup: true
+        insertafter: '^server {'
+        line: 'return 301 https://histudy.jp;'
+      notify:
+        - reload nginx
+
     - name: Fix document root permission
       file:
         path: /var/www/html
