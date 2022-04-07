@@ -20,32 +20,10 @@
       - webroot: "/var/www/html"
         domains:
           - histudy.jp
+          - www.histudy.jp
     certbot_auto_renew: true
     certbot_auto_renew_hour: "3"
     certbot_auto_renew_minute: "30"
-    certbot_create_standalone_stop_services:
-      - nginx
-    nginx_vhosts:
-      - name: default
-        server_name: histudy.jp
-        index: "index.html"
-        access_log: /var/log/nginx/ssl.access.log
-        error_log: /var/log/nginx/ssl.error.log
-        document_root: "/var/www/html"
-        client_max_body_size: 16M
-        ssl:
-          certificate: /etc/letsencrypt/live/histudy.jp/fullchain.pem
-          certificate_key: /etc/letsencrypt/live/histudy.jp/privkey.pem
-          trusted_certificate: /etc/letsencrypt/live/histudy.jp/chain.pem
-          protocols:
-           - TLSv1.3
-          session_timeout: "1d"
-          session_cache: "shared:SSL:50m"
-          session_tickets: false
-          hsts: "max-age=15768000; includeSubDomains;"
-          stapling: true
-          stapling_verify: true
-
   roles:
     - role: common
     - role: nginx
