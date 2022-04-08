@@ -1,4 +1,4 @@
-nginx_vhosts:
+vhosts:
   - name: default
     server_name: histudy.jp
     index: "index.html"
