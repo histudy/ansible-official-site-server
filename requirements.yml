@@ -1,0 +1,10 @@
+- src: https://github.com/histudy/ansible-role-apt-backports.git
+  version: master
+  name: apt-backports
+- src: https://github.com/histudy/ansible-role-common.git
+  version: for-bullseye
+  name: common
+- name: geerlingguy.certbot
+- src: https://github.com/histudy/ansible-role-common.git
+  version: master
+  name: nginx
