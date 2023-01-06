@@ -1,6 +1,8 @@
 ### ansible ###
 *.retry
 
+roles/
+
 ### project ###
 secret/
 *.pub
