@@ -15,7 +15,7 @@ ansible-official-site-server
 以下のコマンドを実行すると、依存しているロールをインストールすることができます。
 
 ```sh
-ansible-galaxy install -r requirements.yml
+ansible-galaxy install -r requirements.yml -p roles
 ```
 
 ### 参考URL

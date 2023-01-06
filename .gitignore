@@ -4,3 +4,10 @@
 ### project ###
 secret/
 *.pub
+
+### direnv ###
+.direnv
+.envrc
+
+### dotenv ###
+.env
