@@ -1,3 +1,4 @@
+---
 vhosts:
   - name: default
     server_name: histudy.jp
@@ -11,7 +12,7 @@ vhosts:
       certificate_key: /etc/letsencrypt/live/histudy.jp/privkey.pem
       trusted_certificate: /etc/letsencrypt/live/histudy.jp/chain.pem
       protocols:
-       - TLSv1.3
+        - TLSv1.3
       session_timeout: "1d"
       session_cache: "shared:SSL:50m"
       session_tickets: false
@@ -30,7 +31,7 @@ vhosts:
       certificate_key: /etc/letsencrypt/live/histudy.jp/privkey.pem
       trusted_certificate: /etc/letsencrypt/live/histudy.jp/chain.pem
       protocols:
-       - TLSv1.3
+        - TLSv1.3
       session_timeout: "1d"
       session_cache: "shared:SSL:50m"
       session_tickets: false

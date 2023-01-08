@@ -1,49 +1,50 @@
+---
 users:
   - name: akiya
     password: "{{ lookup('csvfile', 'munenaga file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
     admin: true
     groups:
-    - www-data
+      - www-data
     authorized_keys:
       - https://github.com/akiya64.keys
   - name: 223n
     password: "{{ lookup('csvfile', '223n file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
     admin: true
     groups:
-    - www-data
+      - www-data
     authorized_keys:
-    - https://github.com/223n.keys
+      - https://github.com/223n.keys
   - name: fu7mu4
     password: "{{ lookup('csvfile', 'fu7mu4 file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
     admin: true
     groups:
-    - www-data
+      - www-data
     authorized_keys:
-    - https://github.com/fu7mu4.keys
+      - https://github.com/fu7mu4.keys
   - name: nogajun
     password: "{{ lookup('csvfile', 'nogajun file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
     admin: true
     groups:
-    - www-data
+      - www-data
     authorized_keys:
-    - https://github.com/nogajun.keys
+      - https://github.com/nogajun.keys
   - name: sperkbird
     password: "{{ lookup('csvfile', 'sperkbird file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
     admin: true
     groups:
-    - www-data
+      - www-data
     authorized_keys:
-    - https://github.com/sperkbird.keys
+      - https://github.com/sperkbird.keys
   - name: wate
     password: "{{ lookup('csvfile', 'wate file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
     admin: true
     groups:
-    - www-data
+      - www-data
     authorized_keys:
-    - https://github.com/wate.keys
+      - https://github.com/wate.keys
   - name: circle-ci
     password: "{{ lookup('csvfile', 'circle-ci file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
     groups:
-    - www-data
+      - www-data
     authorized_keys:
-    - "{{ lookup('file', 'circle-ci.pub') }}"
+      - "{{ lookup('file', 'site_deploy.pub') }}"
