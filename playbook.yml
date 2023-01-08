@@ -28,8 +28,14 @@
     certbot_auto_renew_options: "--quiet --nginx"
   roles:
     - role: common
+      tags:
+        - role_common
     - role: nginx
+      tags:
+        - role_nginx
     - role: geerlingguy.certbot
+      tags:
+        - role_certbot
   # certbot ロールでのインストールが通らないため、先に入れておく
   pre_tasks:
     - name: Install snapd
@@ -39,7 +45,6 @@
         update_cache: true
         cache_valid_time: 3600
         force_apt_get: true
-
   tasks:
     - name: www.histudy.jp -> histudy.jp へのリダイレクト設定追加
       block:
