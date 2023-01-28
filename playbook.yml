@@ -2,30 +2,6 @@
 - name: オフィシャルサイトサーバーのセットアップ
   hosts: web
   become: true
-  vars:
-    common_hostname: histudy.jp
-    common_ssh_use_geoip_filter: true
-    common_ssh_allow_countries:
-      - JP
-      - US
-    common_groups:
-      - name: www-data
-    common_users: "{{ users }}"
-    nginx_vhosts: "{{ vhosts }}"
-    certbot_create_if_missing: true
-    certbot_auto_renew_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
-    certbot_install_method: snap
-    certbot_create_method: standalone
-    certbot_admin_email: autumnsky64@gmail.com
-    certbot_certs:
-      - webroot: "/var/www/html"
-        domains:
-          - histudy.jp
-          - www.histudy.jp
-    certbot_auto_renew: true
-    certbot_auto_renew_hour: "3,15"
-    certbot_auto_renew_minute: "30"
-    certbot_auto_renew_options: "--quiet --nginx"
   roles:
     - role: common
       tags:

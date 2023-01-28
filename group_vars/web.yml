@@ -1,5 +1,78 @@
 ---
-vhosts:
+common_ssh_use_geoip_filter: true
+common_ssh_allow_countries:
+  - JP
+  - US
+
+common_groups:
+  - name: www-data
+
+common_users:
+  - name: akiya
+    password: "{{ lookup('csvfile', 'munenaga file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
+    admin: true
+    groups:
+      - www-data
+    authorized_keys:
+      - https://github.com/akiya64.keys
+  - name: 223n
+    password: "{{ lookup('csvfile', '223n file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
+    admin: true
+    groups:
+      - www-data
+    authorized_keys:
+      - https://github.com/223n.keys
+  - name: fu7mu4
+    password: "{{ lookup('csvfile', 'fu7mu4 file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
+    admin: true
+    groups:
+      - www-data
+    authorized_keys:
+      - https://github.com/fu7mu4.keys
+  - name: nogajun
+    password: "{{ lookup('csvfile', 'nogajun file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
+    admin: true
+    groups:
+      - www-data
+    authorized_keys:
+      - https://github.com/nogajun.keys
+  - name: sperkbird
+    password: "{{ lookup('csvfile', 'sperkbird file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
+    admin: true
+    groups:
+      - www-data
+    authorized_keys:
+      - https://github.com/sperkbird.keys
+  - name: wate
+    password: "{{ lookup('csvfile', 'wate file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
+    admin: true
+    groups:
+      - www-data
+    authorized_keys:
+      - https://github.com/wate.keys
+  - name: circle-ci
+    password: "{{ lookup('csvfile', 'circle-ci file=secret/password.csv delimiter=,') | password_hash('sha512') }}"
+    groups:
+      - www-data
+    authorized_keys:
+      - "{{ lookup('file', 'site_deploy.pub') }}"
+
+certbot_create_if_missing: true
+certbot_auto_renew_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
+certbot_install_method: snap
+certbot_create_method: standalone
+certbot_admin_email: autumnsky64@gmail.com
+certbot_certs:
+  - webroot: "/var/www/html"
+    domains:
+      - histudy.jp
+      - www.histudy.jp
+certbot_auto_renew: true
+certbot_auto_renew_hour: "3,15"
+certbot_auto_renew_minute: "30"
+certbot_auto_renew_options: "--quiet --nginx"
+
+nginx_vhosts:
   - name: default
     server_name: histudy.jp
     index: "index.html"
