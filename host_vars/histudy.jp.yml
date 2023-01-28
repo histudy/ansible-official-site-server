@@ -5,6 +5,9 @@ common_hostname: histudy.jp
 nginx_vhosts:
   - name: default
     server_name: histudy.jp
+    ## 以下のホスト名でアクセスした場合は「server_name」のホスト名にリダイレクトさせる
+    redirect_hosts:
+      - www.histudy.jp
     index: "index.html"
     access_log: /var/log/nginx/ssl.access.log
     error_log: /var/log/nginx/ssl.error.log
@@ -23,6 +26,7 @@ nginx_vhosts:
       stapling: true
       stapling_verify: true
   - name: www.histudy.jp
+    state: false
     server_name: www.histudy.jp
     index: "index.html"
     access_log: /var/log/nginx/ssl.access.log
