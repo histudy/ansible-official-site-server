@@ -22,20 +22,13 @@
         cache_valid_time: 3600
         force_apt_get: true
   tasks:
-    - name: www.histudy.jp -> histudy.jp へのリダイレクト設定追加
-      block:
-        - name: 既にリダイレクト設定があるか確認
-          ansible.builtin.shell:
-            cmd: grep -E 'return 301 https://histudy.jp;' /etc/nginx/sites-available/www.histudy.jp
-      rescue:
-        - name: リダイレクト設定
-          ansible.builtin.lineinfile:
-            path: /etc/nginx/sites-available/www.histudy.jp
-            backup: true
-            insertafter: "^server {"
-            line: "return 301 https://histudy.jp;"
-          notify:
-            - reload nginx
+    - name: nginxの停止・再起動フックは不要のため削除
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /etc/letsencrypt/renewal-hooks/pre/stop_services
+        - /etc/letsencrypt/renewal-hooks/post/start_services
     - name: Fix document root permission
       ansible.builtin.file:
         path: /var/www/html
@@ -48,11 +41,18 @@
         rule: allow
         port: "22"
         proto: tcp
-  post_tasks:
-    - name: nginxの停止・再起動フックは不要のため削除
-      ansible.builtin.file:
-        path: "{{ item }}"
-        state: absent
-      loop:
-        - /etc/letsencrypt/renewal-hooks/pre/stop_services
-        - /etc/letsencrypt/renewal-hooks/post/start_services
+  # post_tasks:
+  #   - name: www.histudy.jp -> histudy.jp へのリダイレクト設定追加
+  #     block:
+  #       - name: 既にリダイレクト設定があるか確認
+  #         ansible.builtin.shell:
+  #           cmd: grep -E 'return 301 https://histudy.jp;' /etc/nginx/sites-enabled/default
+  #     rescue:
+  #       - name: リダイレクト設定
+  #         ansible.builtin.lineinfile:
+  #           path: /etc/nginx/sites-available/www.histudy.jp
+  #           backup: true
+  #           insertafter: "^server {"
+  #           line: "return 301 https://histudy.jp;"
+  #         notify:
+  #           - reload nginx
