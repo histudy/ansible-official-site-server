@@ -47,3 +47,17 @@ ansible-playbook playbook.yml
 ---------------------
 
 * [GitHub Enterpriseなど社内リポジトリにあるansible roleリポジトリをinstallして利用する](https://qiita.com/yassan168/items/0fea8bbc80c39448d7fd)
+
+Tips
+---------------------
+
+[ansible-cmdb](https://ansible-cmdb.readthedocs.io/en/latest/)を利用すると変数の定義内容やホストの情報をHTMLで出力することができます。
+
+変数の定義内容やサーバーの情報を出力するには、以下のコマンドを実行します。
+
+```sh
+mkdir out
+ansible -m setup --tree out/ all
+ansible-cmdb -i hosts.ini out/ >overview.html
+rm -fr out
+```
