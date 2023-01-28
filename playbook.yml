@@ -15,7 +15,7 @@
   # certbot ロールでのインストールが通らないため、先に入れておく
   pre_tasks:
     - name: Install snapd
-      apt:
+      ansible.builtin.apt:
         name:
           - snapd
         update_cache: true
@@ -25,7 +25,8 @@
     - name: www.histudy.jp -> histudy.jp へのリダイレクト設定追加
       block:
         - name: 既にリダイレクト設定があるか確認
-          shell: grep -E 'return 301 https://histudy.jp;' /etc/nginx/sites-available/www.histudy.jp
+          ansible.builtin.shell:
+            cmd: grep -E 'return 301 https://histudy.jp;' /etc/nginx/sites-available/www.histudy.jp
       rescue:
         - name: リダイレクト設定
           ansible.builtin.lineinfile:
@@ -36,22 +37,20 @@
           notify:
             - reload nginx
     - name: Fix document root permission
-      file:
+      ansible.builtin.file:
         path: /var/www/html
         state: directory
         owner: www-data
         group: www-data
         mode: a-x,go+wx,u+w,a+rX,g+s
-
     - name: Adjust ufw for circle CI
-      ufw:
+      community.general.ufw:
         rule: allow
         port: "22"
         proto: tcp
-
   post_tasks:
     - name: nginxの停止・再起動フックは不要のため削除
-      file:
+      ansible.builtin.file:
         path: "{{ item }}"
         state: absent
       loop:
