@@ -1,0 +1,47 @@
+---
+install_other_japanese_fonts: false
+common_hostname: histudy.jp
+
+nginx_vhosts:
+  - name: default
+    server_name: histudy.jp
+    ## 以下のホスト名でアクセスした場合は「server_name」のホスト名にリダイレクトさせる
+    redirect_hosts:
+      - www.histudy.jp
+    index: "index.html"
+    access_log: /var/log/nginx/ssl.access.log
+    error_log: /var/log/nginx/ssl.error.log
+    document_root: "/var/www/html"
+    client_max_body_size: 16M
+    ssl:
+      certificate: /etc/letsencrypt/live/histudy.jp/fullchain.pem
+      certificate_key: /etc/letsencrypt/live/histudy.jp/privkey.pem
+      trusted_certificate: /etc/letsencrypt/live/histudy.jp/chain.pem
+      protocols:
+        - TLSv1.3
+      session_timeout: "1d"
+      session_cache: "shared:SSL:50m"
+      session_tickets: false
+      hsts: "max-age=15768000; includeSubDomains;"
+      stapling: true
+      stapling_verify: true
+  - name: www.histudy.jp
+    state: false
+    server_name: www.histudy.jp
+    index: "index.html"
+    access_log: /var/log/nginx/ssl.access.log
+    error_log: /var/log/nginx/ssl.error.log
+    document_root: "/var/www/html"
+    client_max_body_size: 16M
+    ssl:
+      certificate: /etc/letsencrypt/live/histudy.jp/fullchain.pem
+      certificate_key: /etc/letsencrypt/live/histudy.jp/privkey.pem
+      trusted_certificate: /etc/letsencrypt/live/histudy.jp/chain.pem
+      protocols:
+        - TLSv1.3
+      session_timeout: "1d"
+      session_cache: "shared:SSL:50m"
+      session_tickets: false
+      hsts: "max-age=15768000; includeSubDomains;"
+      stapling: true
+      stapling_verify: true
