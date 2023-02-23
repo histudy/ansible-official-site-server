@@ -20,7 +20,7 @@ nginx_vhosts:
       protocols:
         - TLSv1.3
       session_timeout: "1d"
-      session_cache: "shared:SSL:50m"
+      # session_cache: "shared:SSL:50m"
       session_tickets: false
       hsts: "max-age=15768000; includeSubDomains;"
       stapling: true
@@ -40,7 +40,7 @@ nginx_vhosts:
       protocols:
         - TLSv1.3
       session_timeout: "1d"
-      session_cache: "shared:SSL:50m"
+      # session_cache: "shared:SSL:50m"
       session_tickets: false
       hsts: "max-age=15768000; includeSubDomains;"
       stapling: true
